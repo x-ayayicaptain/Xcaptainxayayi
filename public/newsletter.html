@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X-AYAYI · Newsletter</title>
+<style>
+body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif}
+.wrap{max-width:700px;margin:auto;padding:25px}
+.card{margin-top:70px;background:#111;border:1px solid #292929;border-radius:22px;padding:30px}
+h1{font-size:40px}.gold{color:#ffd700}
+input{width:100%;padding:15px;margin:8px 0;background:#080808;border:1px solid #333;border-radius:10px;color:#fff}
+button{width:100%;padding:16px;border:0;border-radius:12px;background:#ffd700;font-weight:900;font-size:16px}
+.msg{margin-top:15px;color:#aaa}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="gold">X-AYAYI NEWS</div>
+<h1>Newsletter abonnieren</h1>
+<p>Neue Produkte, Angebote und wichtige Shop-Updates direkt per E-Mail.</p>
+<form id="form">
+<input id="email" type="email" required autocomplete="email" placeholder="Deine E-Mail-Adresse">
+<label>
+<input id="consent" type="checkbox" required style="width:auto">
+ Ich möchte den Newsletter erhalten.
+</label>
+<button>NEWSLETTER ABONNIEREN →</button>
+</form>
+<div id="msg" class="msg"></div>
+</div>
+</div>
+<script>
+form.onsubmit=async e=>{
+e.preventDefault();
+msg.textContent="Anmeldung wird verarbeitet …";
+try{
+const r=await fetch("/api/newsletter.php",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({email:email.value,consent:consent.checked})
+});
+const d=await r.json();
+msg.textContent=d.message||d.error||"Anmeldung verarbeitet.";
+}catch(e){msg.textContent="Verbindungsfehler."}
+};
+</script>
+</body>
+</html>

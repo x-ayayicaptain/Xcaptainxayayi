@@ -1,0 +1,28 @@
+{
+  "platform": "X-AYAYI.DE",
+  "architecture": "single-scalable-worker",
+  "logical_services": 100,
+  "services": [
+    "marketplace","search","ai-support","live-chat","cart",
+    "checkout","mollie","paypal","revolut","bank-sepa",
+    "accounts","profiles","orders","order-status","shipping",
+    "returns","refunds","products","categories","offers",
+    "premium","reviews","ratings","wishlist","notifications",
+    "newsletter","contact","faq","help-center","support",
+    "security","rate-limit","analytics","seo","sitemap",
+    "robots","consent","privacy","imprint","terms",
+    "recommendations","product-images","gallery","media",
+    "inventory","stock","pricing","coupons","discounts",
+    "gift-cards","loyalty","points","memberships","dashboard",
+    "admin","seller","catalog","brands","collections",
+    "search-index","autocomplete","filters","sorting",
+    "delivery","tracking","invoice","tax","currency",
+    "localization","german","english","mobile","desktop",
+    "responsive","performance","cache","static-assets",
+    "api-gateway","health","logging","monitoring","errors",
+    "fallback","maintenance","webhooks","payment-status",
+    "fraud-protection","session","authentication","authorization",
+    "customer-service","ai-products","ai-orders","ai-faq",
+    "ai-navigation","ai-handoff","accessibility","performance-monitoring"
+  ]
+}

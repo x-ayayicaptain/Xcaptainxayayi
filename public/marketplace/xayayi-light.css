@@ -1,0 +1,95 @@
+:root{
+  --x-yellow:#ffd21f;
+  --x-yellow-light:#fff8cf;
+  --x-black:#111;
+  --x-text:#17191d;
+  --x-muted:#68707a;
+  --x-bg:#f5f6f8;
+  --x-white:#fff;
+  --x-border:#e2e5e9;
+}
+
+body{
+  background:var(--x-bg)!important;
+  color:var(--x-text)!important;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;
+}
+
+header{
+  background:#fff!important;
+  color:#111!important;
+}
+
+button,.btn{
+  border-radius:13px!important;
+  font-weight:800!important;
+}
+
+#products{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(205px,1fr));
+  gap:18px;
+}
+
+.product,
+.productCard,
+.product-card{
+  background:#fff!important;
+  color:#111!important;
+  border:1px solid var(--x-border)!important;
+  border-radius:18px!important;
+  box-shadow:0 6px 25px rgba(0,0,0,.06)!important;
+  overflow:hidden;
+}
+
+.xayayi-search{
+  width:100%;
+  min-height:48px;
+  padding:0 17px;
+  border:2px solid var(--x-border);
+  border-radius:14px;
+  background:#fff;
+  color:#111;
+  font-size:16px;
+}
+
+.xayayi-search:focus{
+  outline:none;
+  border-color:var(--x-yellow);
+  box-shadow:0 0 0 4px rgba(255,210,31,.18);
+}
+
+.xayayi-category{
+  border:1px solid var(--x-border);
+  background:#fff;
+  border-radius:999px;
+  padding:9px 15px;
+  white-space:nowrap;
+  font-weight:750;
+}
+
+.xayayi-category:hover{
+  background:var(--x-yellow);
+}
+
+.xayayi-ai-button{
+  position:fixed;
+  right:16px;
+  bottom:18px;
+  z-index:99999;
+  width:58px;
+  height:58px;
+  border:0;
+  border-radius:50%!important;
+  background:#111!important;
+  color:var(--x-yellow)!important;
+  font-size:23px;
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+}
+
+@media(max-width:700px){
+  #products{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+}

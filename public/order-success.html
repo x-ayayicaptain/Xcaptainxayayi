@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X-AYAYI · Bestellung bestätigt</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif}
+.wrap{max-width:800px;margin:auto;padding:25px}
+.logo{color:#ffd700;font-size:27px;font-weight:900;letter-spacing:2px;text-decoration:none}
+.card{margin-top:50px;background:#111;border:1px solid #292929;border-radius:24px;padding:35px;text-align:center}
+.ok{font-size:70px}
+h1{font-size:42px;margin:15px 0}
+.gold{color:#ffd700}
+.muted{color:#aaa;line-height:1.6}
+.number{font-size:25px;font-weight:900;color:#ffd700;margin:20px}
+.btn{display:inline-block;background:#ffd700;color:#050505;padding:15px 25px;border-radius:12px;font-weight:900;text-decoration:none;margin:6px}
+.btn.alt{background:#151515;color:#ffd700;border:1px solid #ffd700}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="logo" href="/">X-AYAYI</a>
+<div class="card">
+<div class="ok">✅</div>
+<h1>BESTELLUNG <span class="gold">BESTÄTIGT</span></h1>
+<p class="muted">Vielen Dank für deine Bestellung bei X-AYAYI.</p>
+<div id="order" class="number">Bestellnummer wird geladen …</div>
+<p class="muted">
+Deine Zahlungsbestätigung und weitere Bestellinformationen
+werden nach erfolgreicher Zahlungsprüfung angezeigt.
+</p>
+<a class="btn" href="/">WEITER SHOPPEN →</a>
+<a class="btn alt" href="/account.html">MEIN KONTO</a>
+</div>
+</div>
+<script>
+const p=new URLSearchParams(location.search);
+const id=p.get("order")||p.get("order_id");
+document.getElementById("order").textContent=
+id ? "Bestellung: "+id : "Bestellung erfolgreich übermittelt";
+</script>
+</body>
+</html>

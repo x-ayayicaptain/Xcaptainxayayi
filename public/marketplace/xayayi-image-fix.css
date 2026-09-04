@@ -1,0 +1,62 @@
+/* X-AYAYI HD / MOBILE IMAGE STANDARD */
+
+img{
+  max-width:100%;
+}
+
+#products img,
+.product img,
+.productCard img,
+.product-card img,
+.gallery img,
+.thumb img,
+#galleryMainImg{
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#fff!important;
+}
+
+#products img,
+.product img,
+.productCard img,
+.product-card img{
+  width:100%!important;
+  height:260px!important;
+  padding:12px!important;
+}
+
+#galleryMainImg{
+  display:block!important;
+  width:100%!important;
+  height:min(68vh,680px)!important;
+  max-height:680px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#fff!important;
+}
+
+.thumb img{
+  width:90px!important;
+  height:90px!important;
+  object-fit:contain!important;
+}
+
+@media(max-width:700px){
+  #products img,
+  .product img,
+  .productCard img,
+  .product-card img{
+    height:190px!important;
+    padding:8px!important;
+  }
+
+  #galleryMainImg{
+    height:min(58vh,520px)!important;
+    max-height:520px!important;
+  }
+
+  .thumb img{
+    width:68px!important;
+    height:68px!important;
+  }
+}

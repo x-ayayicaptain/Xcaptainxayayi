@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X-AYAYI · Checkout</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif}
+.wrap{max-width:850px;margin:auto;padding:20px}
+.logo{display:block;color:#ffd700;font-size:26px;font-weight:900;letter-spacing:2px;padding:15px 0}
+.card{background:#111;border:1px solid #292929;border-radius:20px;padding:22px;margin:18px 0}
+h1{font-size:44px;margin:20px 0}
+h2{color:#ffd700}
+.muted{color:#aaa;line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select{width:100%;padding:14px;margin:5px 0 14px;border-radius:10px;border:1px solid #333;background:#080808;color:#fff}
+.btn{width:100%;padding:16px;margin:7px 0;border:0;border-radius:12px;background:linear-gradient(135deg,#ffd700,#b8860b);color:#050505;font-weight:900;font-size:16px}
+.item{padding:12px 0;border-bottom:1px solid #292929}
+.total{font-size:24px;font-weight:900;color:#ffd700;margin-top:18px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}h1{font-size:36px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="logo" href="/">X-AYAYI</a>
+
+<h1>CHECKOUT</h1>
+<p class="muted">Sicher bestellen · Lieferadresse · Zahlungsweiterleitung</p>
+
+<div class="card">
+<h2>📦 Lieferadresse</h2>
+
+<div class="grid">
+<div>
+<label>Vorname *</label>
+<input id="first_name" autocomplete="given-name">
+</div>
+<div>
+<label>Nachname *</label>
+<input id="last_name" autocomplete="family-name">
+</div>
+</div>
+
+<label>Straße *</label>
+<input id="street" autocomplete="street-address">
+
+<div class="grid">
+<div>
+<label>Hausnummer *</label>
+<input id="house_number">
+</div>
+<div>
+<label>PLZ *</label>
+<input id="zip" autocomplete="postal-code">
+</div>
+</div>
+
+<label>Stadt *</label>
+<input id="city" autocomplete="address-level2">
+
+<label>Land *</label>
+<select id="country">
+<option value="DE">Deutschland</option>
+<option value="AT">Österreich</option>
+<option value="CH">Schweiz</option>
+</select>
+
+<label>E-Mail *</label>
+<input id="email" type="email" autocomplete="email">
+
+<label>Telefon</label>
+<input id="phone" type="tel" autocomplete="tel">
+</div>
+
+<div class="card">
+<h2>🛒 Deine Bestellung</h2>
+<div id="cart">Warenkorb wird geladen …</div>
+<div id="total" class="total"></div>
+</div>
+
+<div class="card">
+<h2>💳 Zahlungsart</h2>
+
+<button class="btn" onclick="pay('card')">💳 KREDITKARTE · MOLLIE</button>
+<button class="btn" onclick="pay('bank')">🏦 BANK / SEPA · MOLLIE</button>
+<button class="btn" onclick="pay('paypal')">🅿️ PAYPAL</button>
+<button class="btn" onclick="pay('revolut')">🟡 REVOLUT</button>
+<button class="btn" onclick="pay()">🟠 </button>
+
+<p id="status" class="muted"></p>
+</div>
+
+</div>
+
+<script>
+let cart=[];
+
+function money(cents){
+ return (Number(cents||0)/100).toFixed(2).replace('.',',')+' €';
+}
+
+function loadCart(){
+ try{
+  cart=JSON.parse(localStorage.getItem('xayayi_cart')||'[]');
+ }catch(e){cart=[]}
+
+ if(!cart.length){
+  document.getElementById('cart').innerHTML='<p class="muted">Dein Warenkorb ist leer.</p>';
+  return;
+ }
+
+ document.getElementById('cart').innerHTML=cart.map(x=>
+  '<div class="item"><strong>'+escapeHtml(x.name||x.id)+'</strong> × '+Number(x.qty||1)+'</div>'
+ ).join('');
+}
+
+function escapeHtml(s){
+ return String(s).replace(/[&<>"']/g,m=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+ }[m]));
+}
+
+async function pay(provider){
+
+ const required=[
+  'first_name','last_name','street',
+  'house_number','zip','city','email'
+ ];
+
+ for(const id of required){
+  if(!document.getElementById(id).value.trim()){
+   document.getElementById('status').textContent='Bitte alle Pflichtfelder (*) ausfüllen.';
+   document.getElementById(id).focus();
+   return;
+  }
+ }
+
+ if(!cart.length){
+  document.getElementById('status').textContent='Dein Warenkorb ist leer.';
+  return;
+ }
+
+ document.getElementById('status').textContent='Bestellung wird sicher vorbereitet …';
+
+ const address={
+  first_name:document.getElementById('first_name').value.trim(),
+  last_name:document.getElementById('last_name').value.trim(),
+  street:document.getElementById('street').value.trim(),
+  house_number:document.getElementById('house_number').value.trim(),
+  zip:document.getElementById('zip').value.trim(),
+  city:document.getElementById('city').value.trim(),
+  country:document.getElementById('country').value,
+  email:document.getElementById('email').value.trim(),
+  phone:document.getElementById('phone').value.trim()
+ };
+
+ try{
+  const r=await fetch('/api/create-order.php',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({
+    items:cart.map(x=>({
+     id:x.id,
+     qty:Number(x.qty||1)
+    })),
+    customer:address,
+    shipping_address:address,
+    payment_provider:provider
+   })
+  });
+
+  const order=await r.json();
+
+  if(!r.ok||!order.ok){
+   document.getElementById('status').textContent=
+    order.error||'Bestellung konnte nicht erstellt werden.';
+   return;
+  }
+
+  const payment=await fetch('/api/checkout',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({
+    provider:provider,
+    items:cart.map(x=>({
+     id:x.id,
+     qty:Number(x.qty||1)
+    })),
+    return_url:location.origin+'/?payment=return&order='+encodeURIComponent(order.order.id)
+   })
+  });
+
+  const data=await payment.json();
+
+  if(data.checkout_url){
+   location.href=data.checkout_url;
+   return;
+  }
+
+  document.getElementById('status').textContent=
+   data.error||'Zahlung konnte nicht gestartet werden.';
+
+ }catch(e){
+  document.getElementById('status').textContent=
+   'Verbindungsfehler. Bitte erneut versuchen.';
+ }
+}
+
+loadCart();
+</script>
+</body>
+</html>

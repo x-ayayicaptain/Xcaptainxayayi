@@ -1,0 +1,11 @@
+X-AYAYI.DE — ADSENSE / CMP SETUP
+
+1) In Google AdSense x-ayayi.de hinzufügen und die Website-Prüfung abschließen.
+2) Unter „Datenschutz und Mitteilungen“ eine EU-/UK-/Schweiz-Einwilligungsnachricht konfigurieren.
+3) Für personalisierte Werbung im EWR/UK/Schweiz die von Google geforderte zertifizierte TCF-CMP verwenden bzw. Googles CMP aus AdSense einrichten.
+4) Die Datenschutzerklärung unter https://x-ayayi.de/datenschutz.html in AdSense hinterlegen.
+5) ads.txt aus dem Stammverzeichnis prüfen: https://x-ayayi.de/ads.txt
+6) Die tatsächlichen Anbieter-, Kontakt-, Versand-, Widerrufs- und Steuerangaben in den Rechtstexten ergänzen.
+7) Vor Live-Verkauf prüfen: Produktbestand, Preise, Bildrechte, Lieferzeiten und Zahlungsanbieter.
+
+WICHTIG: Dieses Paket bereitet die Website technisch vor, garantiert aber keine AdSense-Freigabe. Google prüft die Website selbst.

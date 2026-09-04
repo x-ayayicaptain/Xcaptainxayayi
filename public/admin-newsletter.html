@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X-AYAYI Newsletter Admin</title>
+<style>
+body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif;padding:20px}
+.box{max-width:900px;margin:auto}
+h1{color:#ffd700}
+input,textarea,button{width:100%;box-sizing:border-box;margin:8px 0;padding:14px;border-radius:12px;border:1px solid #444;background:#111;color:#fff}
+textarea{min-height:280px;font-family:monospace}
+button{background:#ffd700;color:#000;font-weight:800;border:0;cursor:pointer}
+.send{background:#19d36b}
+.status{padding:14px;margin:12px 0;border-radius:12px;background:#111}
+.preview{margin-top:15px;padding:20px;background:#fff;color:#111;border-radius:15px;min-height:220px}
+</style>
+</head>
+<body>
+<div class="box">
+
+<h1>🔥 X-AYAYI NEWSLETTER ADMIN</h1>
+
+<div class="status">
+🔐 Admin-Token
+<input id="token" type="password" autocomplete="off" placeholder="Admin-Token">
+</div>
+
+<input id="subject" placeholder="Newsletter-Betreff">
+
+<textarea id="html" placeholder="Newsletter HTML hier einfügen..."></textarea>
+
+<button onclick="previewNewsletter()">👀 VORSCHAU</button>
+
+<div id="status" class="status">Bereit. Noch nichts versendet.</div>
+
+<h2>Newsletter-Vorschau</h2>
+<div id="preview" class="preview"></div>
+
+<button class="send" onclick="sendNewsletter()">📧 NEWSLETTER SENDEN</button>
+
+</div>
+
+<script>
+function getData(){
+    return {
+        token: document.getElementById('token').value.trim(),
+        subject: document.getElementById('subject').value.trim(),
+        html: document.getElementById('html').value.trim()
+    };
+}
+
+function previewNewsletter(){
+    const d=getData();
+
+    if(!d.subject || !d.html){
+        document.getElementById('status').textContent='❌ Betreff und Inhalt fehlen.';
+        return;
+    }
+
+    document.getElementById('preview').innerHTML=d.html;
+    document.getElementById('status').textContent='✅ Vorschau erstellt. Noch nichts versendet.';
+}
+
+async function sendNewsletter(){
+    const d=getData();
+
+    if(!d.token){
+        document.getElementById('status').textContent='❌ Admin-Token fehlt.';
+        return;
+    }
+
+    if(!d.subject || !d.html){
+        document.getElementById('status').textContent='❌ Betreff und Inhalt fehlen.';
+        return;
+    }
+
+    document.getElementById('preview').innerHTML=d.html;
+
+    const confirmed=confirm(
+        'ACHTUNG: Newsletter jetzt wirklich versenden?\n\n' +
+        'Der Versand geht nur an bestätigte Newsletter-Abonnenten.'
+    );
+
+    if(!confirmed){
+        document.getElementById('status').textContent='⏸ Versand abgebrochen.';
+        return;
+    }
+
+    document.getElementById('status').textContent='⏳ Versand wird verarbeitet...';
+
+    try{
+        const r=await fetch('/api/ai-newsletter-send.php',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+                admin_token:d.token,
+                subject:d.subject,
+                html:d.html
+            })
+        });
+
+        const data=await r.json();
+
+        if(!r.ok || !data.ok){
+            document.getElementById('status').textContent=
+                '❌ '+(data.error || 'Versand fehlgeschlagen.');
+            return;
+        }
+
+        document.getElementById('status').textContent=
+            '✅ Versand verarbeitet — gesendet: '+data.sent+
+            ' | übersprungen: '+data.skipped+
+            ' | fehlgeschlagen: '+data.failed;
+
+    }catch(e){
+        document.getElementById('status').textContent='❌ Verbindungsfehler.';
+    }
+}
+</script>
+
+</body>
+</html>
