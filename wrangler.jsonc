@@ -1,6 +1,6 @@
 {
   "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
-  "name": "xcaptainxayayi",
+  "name": "xcaptainxayayi-live",
   "main": "src/index.js",
   "compatibility_date": "2026-09-04",
   "assets": {
