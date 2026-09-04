@@ -76,3 +76,181 @@
   cursor:pointer;
 }
 
+
+/* ============================================================
+   X-AYAYI SUPPORT — ULTIMATE VISIBILITY FIX
+   Erzwingt lesbaren Chat ohne Marketplace/Dashboard zu verändern
+   ============================================================ */
+
+/* Captain AI Fenster */
+body #captainAIWindow,
+body #captainAIWindow.open {
+  background:#ffffff !important;
+  color:#111111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  filter:none !important;
+  mix-blend-mode:normal !important;
+}
+
+/* Header */
+body #captainAIWindow #captainAIHeader {
+  background:#111111 !important;
+  color:#ffffff !important;
+  opacity:1 !important;
+}
+
+/* Status */
+body #captainAIWindow #captainAIStatus {
+  color:#ffd700 !important;
+}
+
+/* Quick Buttons */
+body #captainAIWindow .captain-quick,
+body #captainAIWindow .captain-quick button {
+  background:#ffffff !important;
+  color:#111111 !important;
+  opacity:1 !important;
+}
+
+/* Nachrichtenbereich */
+body #captainAIWindow #captainAIMessages {
+  background:#f5f5f5 !important;
+  color:#111111 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+/* AI Nachrichten */
+body #captainAIWindow #captainAIMessages .captain-msg,
+body #captainAIWindow #captainAIMessages .captain-ai-msg {
+  background:#ffffff !important;
+  color:#111111 !important;
+  border:1px solid #cccccc !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+/* Benutzer Nachrichten */
+body #captainAIWindow #captainAIMessages .captain-user-msg {
+  background:#111111 !important;
+  color:#ffffff !important;
+  border:1px solid #111111 !important;
+}
+
+/* Media */
+body #captainAIWindow .captain-media-bar {
+  background:#ffffff !important;
+  color:#111111 !important;
+}
+
+body #captainAIWindow .captain-media-btn {
+  background:#ffffff !important;
+  color:#111111 !important;
+  border:1px solid #bbbbbb !important;
+}
+
+/* Emoji */
+body #captainAIWindow .captain-emoji-panel {
+  background:#ffffff !important;
+  color:#111111 !important;
+}
+
+body #captainAIWindow .captain-emoji {
+  background:#eeeeee !important;
+  color:#111111 !important;
+}
+
+/* Attachment */
+body #captainAIWindow #captainAIFormAttachment,
+body #captainAIWindow .captain-attachment {
+  background:#ffffff !important;
+  color:#111111 !important;
+}
+
+/* Eingabe */
+body #captainAIWindow #captainAIForm {
+  background:#ffffff !important;
+}
+
+body #captainAIWindow #captainAIInput {
+  background:#ffffff !important;
+  color:#111111 !important;
+  border:1px solid #999999 !important;
+  opacity:1 !important;
+}
+
+body #captainAIWindow #captainAIInput::placeholder {
+  color:#666666 !important;
+}
+
+body #captainAIWindow #captainAISend {
+  background:#ffd700 !important;
+  color:#111111 !important;
+}
+
+/* Systemmeldungen */
+body #captainAIWindow .captain-system-msg {
+  background:#fff4b8 !important;
+  color:#111111 !important;
+  border:1px solid #ffd700 !important;
+}
+
+/* ============================================================
+   ALTES X-AYAYI SUPPORT-FENSTER
+   ============================================================ */
+
+body #messages {
+  color:#111111 !important;
+  background:#f5f5f5 !important;
+}
+
+body #messages > * {
+  color:#111111 !important;
+  opacity:1 !important;
+}
+
+body #chatInput {
+  background:#ffffff !important;
+  color:#111111 !important;
+}
+
+body #chatInput::placeholder {
+  color:#666666 !important;
+}
+
+body #chatForm {
+  background:#ffffff !important;
+}
+
+body #chatStatus {
+  color:#111111 !important;
+}
+
+/* Falls der bestehende Chat diese Klassen benutzt */
+body .chat-window,
+body .chat-panel,
+body .support-chat,
+body .support-window,
+body .chat-modal {
+  color:#111111 !important;
+}
+
+body .chat-window input,
+body .chat-panel input,
+body .support-chat input,
+body .support-window input,
+body .chat-modal input {
+  background:#ffffff !important;
+  color:#111111 !important;
+}
+
+body .chat-window textarea,
+body .chat-panel textarea,
+body .support-chat textarea,
+body .support-window textarea,
+body .chat-modal textarea {
+  background:#ffffff !important;
+  color:#111111 !important;
+}
+
