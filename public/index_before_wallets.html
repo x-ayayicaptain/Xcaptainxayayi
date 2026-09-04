@@ -191,11 +191,7 @@ function xmSearch(){
   function openDirectCheckout(id){
     const p=product(id); if(!p) return;
     cart=[{id,qty:1}]; save();
-    byId("directCheckoutModal").innerHTML=`<div class="directCheckoutBox"><button class="close" type="button" data-close-checkout>×</button><span class="eyebrow">SECURE CHECKOUT</span><h2>Bezahlen</h2><div class="orderPreview"><img src="${p.gallery?.[0]||p.img}" alt=""><div><b>${p.name}</b><span>${euro(p.price)} · 1 Stück</span></div></div><p class="checkoutIntro">Wähle deine Zahlungsart. Danach öffnet sich der sichere Checkout des Zahlungsanbieters.</p><div class="directMethods"><button type="button" data-provider="mollie">💳 Kreditkarte</button><button type="button" data-provider="bank">🏦 Bank / Pay by Bank</button><button type="button" data-provider="bank">🏦 SEPA / Banküberweisung</button>
-<button type="button" data-provider="mollie">🍎 Apple Pay</button>
-<button type="button" data-provider="mollie">🤖 Google Pay</button>
-<button type="button" data-provider="mollie">🟣 Klarna</button>
-<button type="button" data-provider="paypal">🅿️ PayPal</button><button type="button" data-provider="revolut">🔴 Revolut</button></div><div id="directCheckoutError" class="error"></div><small class="legalNote">Die Zahlung wird serverseitig erstellt. Kartendaten werden nicht auf X-AYAYI gespeichert.</small></div>`;
+    byId("directCheckoutModal").innerHTML=`<div class="directCheckoutBox"><button class="close" type="button" data-close-checkout>×</button><span class="eyebrow">SECURE CHECKOUT</span><h2>Bezahlen</h2><div class="orderPreview"><img src="${p.gallery?.[0]||p.img}" alt=""><div><b>${p.name}</b><span>${euro(p.price)} · 1 Stück</span></div></div><p class="checkoutIntro">Wähle deine Zahlungsart. Danach öffnet sich der sichere Checkout des Zahlungsanbieters.</p><div class="directMethods"><button type="button" data-provider="mollie">💳 Kreditkarte</button><button type="button" data-provider="bank">🏦 Bank / Pay by Bank</button><button type="button" data-provider="bank">🏦 SEPA / Banküberweisung</button><button type="button" data-provider="paypal">🅿️ PayPal</button><button type="button" data-provider="revolut">🔴 Revolut</button></div><div id="directCheckoutError" class="error"></div><small class="legalNote">Die Zahlung wird serverseitig erstellt. Kartendaten werden nicht auf X-AYAYI gespeichert.</small></div>`;
     byId("directCheckoutModal").classList.add("open");
   }
   function closeDirectCheckout(){ byId("directCheckoutModal").classList.remove("open"); }
