@@ -259,6 +259,55 @@ export default {
       return new Response("OK", { status: 200 });
     }
 
+    if (request.method === "POST" && url.pathname === "/api/ai") {
+      try {
+        if (!env.AI) {
+          return json({
+            ok: false,
+            error: "XAYAYI AI ist noch nicht aktiviert."
+          }, 503);
+        }
+
+        const body = await request.json();
+        const message = String(body?.message || "").trim();
+
+        if (!message) {
+          return json({
+            ok: false,
+            error: "Keine Nachricht übermittelt."
+          }, 400);
+        }
+
+        const response = await env.AI.run(
+          "@cf/meta/llama-3.1-8b-instruct-fast",
+          {
+            messages: [
+              {
+                role: "system",
+                content:
+                  "Du bist XAYAYI AI, der professionelle KI-Assistent von X-AYAYI und AYAYICAPTAIN. Antworte auf Deutsch, freundlich, klar und professionell. Hilf bei Marketplace, Produkten, Technik, Website, Marketing, Sicherheit und allgemeinen Fragen. Bei Finanz- oder Krypto-Themen gib keine gefährlichen oder garantierten Anlageversprechen. Behaupte niemals, eine echte Person zu sein. Wenn Informationen fehlen, sage das ehrlich."
+              },
+              {
+                role: "user",
+                content: message
+              }
+            ]
+          }
+        );
+
+        return json({
+          ok: true,
+          assistant: response?.response || response?.text || "XAYAYI AI konnte gerade keine Antwort erzeugen."
+        });
+
+      } catch (error) {
+        return json({
+          ok: false,
+          error: error?.message || "XAYAYI AI Server Fehler"
+        }, 500);
+      }
+    }
+
     if (url.pathname === "/api/health") {
       return json({
         ok: true,
