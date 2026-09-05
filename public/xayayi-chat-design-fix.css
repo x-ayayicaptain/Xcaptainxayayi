@@ -1,0 +1,139 @@
+/* X-AYAYI ASSISTANT — PERFECT READABILITY */
+#captain-ai-panel,
+#captain-ai-window,
+.chat-window,
+.support-chat,
+.ai-chat,
+.chat-container {
+  background:#ffffff !important;
+  color:#111111 !important;
+  font-family:Arial,Helvetica,sans-serif !important;
+}
+
+/* Every AI message */
+#captain-ai-panel .assistant,
+#captain-ai-panel .ai,
+#captain-ai-panel .bot,
+#captain-ai-panel .assistant-message,
+#captain-ai-panel .ai-message,
+#captain-ai-window .assistant,
+#captain-ai-window .ai,
+#captain-ai-window .bot,
+#captain-ai-window .assistant-message,
+#captain-ai-window .ai-message,
+.chat-window .assistant,
+.chat-window .ai,
+.chat-window .bot,
+.chat-window .assistant-message,
+.chat-window .ai-message,
+.support-chat .assistant,
+.support-chat .ai,
+.support-chat .bot,
+.support-chat .assistant-message,
+.support-chat .ai-message,
+.captain-ai-message {
+  background:#f4f4f4 !important;
+  color:#111111 !important;
+  border:1px solid #dddddd !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+}
+
+/* Force text inside AI messages */
+#captain-ai-panel .assistant *,
+#captain-ai-panel .ai *,
+#captain-ai-panel .bot *,
+#captain-ai-panel .assistant-message *,
+#captain-ai-panel .ai-message *,
+#captain-ai-window .assistant *,
+#captain-ai-window .ai *,
+#captain-ai-window .bot *,
+#captain-ai-window .assistant-message *,
+#captain-ai-window .ai-message *,
+.chat-window .assistant *,
+.chat-window .ai *,
+.chat-window .bot *,
+.chat-window .assistant-message *,
+.chat-window .ai-message *,
+.support-chat .assistant *,
+.support-chat .ai *,
+.support-chat .bot *,
+.support-chat .assistant-message *,
+.support-chat .ai-message * {
+  color:#111111 !important;
+  background:transparent !important;
+  text-shadow:none !important;
+}
+
+/* Chat messages area */
+#messages,
+#captain-ai-messages,
+#captainAIMessages {
+  background:#ffffff !important;
+  color:#111111 !important;
+}
+
+/* User messages */
+#captain-ai-panel .user,
+#captain-ai-panel .user-message,
+#captain-ai-window .user,
+#captain-ai-window .user-message,
+.chat-window .user,
+.chat-window .user-message,
+.support-chat .user,
+.support-chat .user-message {
+  background:#fff3a6 !important;
+  color:#111111 !important;
+  border:1px solid #e2c400 !important;
+}
+
+/* Input */
+#chatInput,
+#captain-ai-input,
+#captainAIInput {
+  background:#ffffff !important;
+  color:#111111 !important;
+  border:2px solid #d4af00 !important;
+  caret-color:#111111 !important;
+}
+
+#chatInput::placeholder,
+#captain-ai-input::placeholder,
+#captainAIInput::placeholder {
+  color:#666666 !important;
+}
+
+/* Buttons */
+#chatForm button,
+#captain-ai-panel button,
+#captain-ai-window button {
+  color:#111111 !important;
+  opacity:1 !important;
+}
+
+/* Header */
+#captain-ai-panel .header,
+#captain-ai-window .header,
+.chat-window .chat-header,
+.support-chat .chat-header {
+  color:#ffd700 !important;
+}
+
+/* Links and strong text */
+#captain-ai-panel a,
+#captain-ai-panel strong,
+#captain-ai-panel b,
+#captain-ai-window a,
+#captain-ai-window strong,
+#captain-ai-window b {
+  color:#111111 !important;
+}
+
+/* Remove dark overlays */
+#captain-ai-panel::before,
+#captain-ai-panel::after,
+#captain-ai-window::before,
+#captain-ai-window::after {
+  opacity:0 !important;
+  pointer-events:none !important;
+}
