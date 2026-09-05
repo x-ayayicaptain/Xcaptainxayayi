@@ -1,0 +1,43 @@
+/* X-AYAYI SUPPORT CHAT — VISIBILITY PATCH */
+
+body .chat-modal textarea,
+body .chat-window textarea,
+body #chatModal textarea,
+body #chatWindow textarea,
+body #supportChat textarea,
+body .xayayi-chat textarea{
+  background:#ffffff !important;
+  color:#111111 !important;
+  -webkit-text-fill-color:#111111 !important;
+  opacity:1 !important;
+}
+
+body .chat-modal input,
+body .chat-window input,
+body #chatModal input,
+body #chatWindow input,
+body #supportChat input,
+body .xayayi-chat input{
+  background:#ffffff !important;
+  color:#111111 !important;
+  -webkit-text-fill-color:#111111 !important;
+  opacity:1 !important;
+}
+
+body .chat-modal,
+body .chat-window,
+body #chatModal,
+body #chatWindow,
+body #supportChat,
+body .xayayi-chat{
+  color:#111111 !important;
+}
+
+body .chat-modal *,
+body .chat-window *,
+body #chatModal *,
+body #chatWindow *,
+body #supportChat *,
+body .xayayi-chat *{
+  text-shadow:none !important;
+}
