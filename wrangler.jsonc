@@ -9,5 +9,11 @@
   },
   "ai": {
     "binding": "AI"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "x-ayayi.de",
+      "custom_domain": true
+    }
+  ]
 }
