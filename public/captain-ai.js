@@ -549,7 +549,7 @@
           addMessage(q, true);
 
           setTimeout(function () {
-            addMessage(answer(q), false);
+            askXayayiAI(q);
           }, 250);
         };
       });
@@ -582,3 +582,55 @@
   }
 
 })();
+
+
+/* XAYAYI AI — REAL ML BACKEND */
+async function askXayayiAI(message) {
+  const text = String(message || "").trim();
+  if (!text) return;
+
+  try {
+    addMessage("🤖 XAYAYI AI denkt nach ...", false);
+
+    const response = await fetch("/api/ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        message: text
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(data?.error || "XAYAYI AI Server Fehler");
+    }
+
+    const reply =
+      data.assistant ||
+      data.response ||
+      data.text ||
+      "XAYAYI AI konnte gerade keine Antwort erzeugen.";
+
+    const messages = document.getElementById("captainAIMessages");
+    if (messages && messages.lastElementChild) {
+      const last = messages.lastElementChild;
+      if (last.textContent.includes("XAYAYI AI denkt nach")) {
+        last.remove();
+      }
+    }
+
+    addMessage(reply, false);
+
+  } catch (error) {
+    console.error("XAYAYI AI:", error);
+
+    addMessage(
+      "⚠️ XAYAYI AI ist momentan nicht erreichbar. Bitte versuche es gleich erneut.",
+      false
+    );
+  }
+}
