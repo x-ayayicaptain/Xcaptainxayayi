@@ -1,0 +1,107 @@
+/* X-AYAYI ASSISTANT — FINAL CHAT COLORS */
+
+#captain-ai-panel,
+#captain-ai-window,
+.chat-window,
+.support-chat,
+.ai-chat,
+.chat-container {
+  background:#ffffff !important;
+}
+
+/* ASSISTANT / AI = BLUE */
+#captain-ai-panel .assistant,
+#captain-ai-panel .ai,
+#captain-ai-panel .bot,
+#captain-ai-panel .assistant-message,
+#captain-ai-panel .ai-message,
+#captain-ai-window .assistant,
+#captain-ai-window .ai,
+#captain-ai-window .bot,
+#captain-ai-window .assistant-message,
+#captain-ai-window .ai-message,
+.chat-window .assistant,
+.chat-window .ai,
+.chat-window .bot,
+.chat-window .assistant-message,
+.chat-window .ai-message,
+.support-chat .assistant,
+.support-chat .ai,
+.support-chat .bot,
+.support-chat .assistant-message,
+.support-chat .ai-message {
+  background:#3b82f6 !important;
+  color:#000000 !important;
+  border:1px solid #2563eb !important;
+  text-shadow:none !important;
+}
+
+/* FORCE ASSISTANT TEXT BLACK */
+#captain-ai-panel .assistant *,
+#captain-ai-panel .ai *,
+#captain-ai-panel .bot *,
+#captain-ai-panel .assistant-message *,
+#captain-ai-panel .ai-message *,
+#captain-ai-window .assistant *,
+#captain-ai-window .ai *,
+#captain-ai-window .bot *,
+#captain-ai-window .assistant-message *,
+#captain-ai-window .ai-message *,
+.chat-window .assistant *,
+.chat-window .ai *,
+.chat-window .bot *,
+.chat-window .assistant-message *,
+.chat-window .ai-message *,
+.support-chat .assistant *,
+.support-chat .ai *,
+.support-chat .bot *,
+.support-chat .assistant-message *,
+.support-chat .ai-message * {
+  color:#000000 !important;
+  background:transparent !important;
+}
+
+/* YOUR MESSAGE = GOLD */
+#captain-ai-panel .user,
+#captain-ai-panel .user-message,
+#captain-ai-window .user,
+#captain-ai-window .user-message,
+.chat-window .user,
+.chat-window .user-message,
+.support-chat .user,
+.support-chat .user-message {
+  background:#ffd700 !important;
+  color:#000000 !important;
+  border:1px solid #d4af00 !important;
+}
+
+/* NOTIFICATIONS = BLUE */
+#captain-ai-panel .notification,
+#captain-ai-panel .notice,
+#captain-ai-panel .alert,
+#captain-ai-panel .chat-status,
+#captain-ai-window .notification,
+#captain-ai-window .notice,
+#captain-ai-window .alert,
+#captain-ai-window .chat-status,
+.chat-window .notification,
+.chat-window .notice,
+.chat-window .alert,
+.chat-window .chat-status,
+.support-chat .notification,
+.support-chat .notice,
+.support-chat .alert,
+.support-chat .chat-status {
+  background:#3b82f6 !important;
+  color:#000000 !important;
+  border:1px solid #2563eb !important;
+}
+
+/* INPUT */
+#chatInput,
+#captain-ai-input,
+#captainAIInput {
+  background:#ffffff !important;
+  color:#000000 !important;
+  border:2px solid #ffd700 !important;
+}
