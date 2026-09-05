@@ -230,43 +230,75 @@ function xmSearch(){
     return "Ich helfe dir mit Produkten, Galerie, Warenkorb, Checkout und X-AYAYI Support. Du kannst ein Produkt direkt öffnen und anschließend „JETZT KAUFEN & BEZAHLEN“ wählen.";
   }
   async function sendChat(e){
-    if(e) e.preventDefault();
-    const input=byId("chatInput"),btn=byId("sendBtn"),status=byId("chatStatus"),v=input.value.trim(); if(!v) return;
-    addMsg(v,true); input.value=""; btn.disabled=true; status.textContent="Antwort wird gesendet …";
-    const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),9000);
-    // Always provide a working answer immediately; the server AI can replace it when available.
-    const localReply=localSupport(v);
-    addMsg(localReply,false);
-    status.textContent="X-AYAYI Support aktiv …";
-    try{
-      let r=await fetch("/chat.php",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({message:v}),signal:controller.signal});
-      if(r.status===404){ r=await fetch("/api/chat.php",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({message:v}),signal:controller.signal}); }
-      const raw=await r.text(); let d={}; try{d=JSON.parse(raw)}catch(e){}
-      if(r.ok && d.reply){
-        const bots=byId("messages").querySelectorAll(".bot");
-        if(bots.length) bots[bots.length-1].textContent=d.reply;
-        status.textContent="Server-Support verbunden.";
-      } else { status.textContent="Lokaler X-AYAYI Support aktiv."; }
-    }catch(e){ status.textContent="Lokaler X-AYAYI Support aktiv · Server-AI optional."; }
-    finally{ clearTimeout(timer); btn.disabled=false; input.focus(); }
-  }
-  async function apiHealth(){
-    try{const r=await fetch("/health.php?ts="+Date.now(),{cache:"no-store"}); const d=await r.json(); byId("statApi").textContent=d.ok?"ONLINE":"CHECK";}catch(e){byId("statApi").textContent="OFFLINE";}
+  if(e) e.preventDefault();
+
+  const input = byId("chatInput");
+  const status = byId("chatStatus");
+  const v = input ? input.value.trim() : "";
+  if(!v) return;
+
+  const boxes = [
+    byId("messages"),
+    byId("chatMessages"),
+    byId("captainAIMessages")
+  ].filter(Boolean);
+
+  const box = boxes[0];
+
+  function addBubble(text, user){
+    if(!box) return;
+    const el = document.createElement("div");
+    el.textContent = text;
+    el.style.cssText =
+      "margin:10px 0;padding:13px 16px;border-radius:16px;" +
+      "line-height:1.45;white-space:pre-wrap;" +
+      "background:" + (user ? "#FFD21F" : "#2196F3") + ";" +
+      "color:#111!important;font-size:15px;";
+    box.appendChild(el);
+    box.scrollTop = box.scrollHeight;
   }
 
-  document.addEventListener("click", e => {
-    const addBtn=e.target.closest("[data-add]"); if(addBtn){e.stopPropagation();add(addBtn.dataset.add);return;}
-    const buy=e.target.closest("[data-buy]"); if(buy){e.stopPropagation();add(buy.dataset.buy);return;}
-    const card=e.target.closest(".card[data-product]"); if(card){openProduct(card.dataset.product);return;}
-    const qty=e.target.closest("[data-qty]"); if(qty){changeQty(qty.dataset.qty,Number(qty.dataset.d));return;}
-    const rem=e.target.closest("[data-remove]"); if(rem){remove(rem.dataset.remove);return;}
-    const thumb=e.target.closest("[data-img]"); if(thumb){byId("galleryMainImg").src=thumb.dataset.img;document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));thumb.classList.add("active");return;}
-    const mp=e.target.closest("[data-modal-buy]"); if(mp){closeProduct();openDirectCheckout(mp.dataset.modalBuy);return;}
-    const mc=e.target.closest("[data-modal-cart]"); if(mc){closeProduct();add(mc.dataset.modalCart);return;}
-    const provider=e.target.closest("[data-provider]"); if(provider){checkout(provider.dataset.provider);return;}
-    if(e.target.closest("[data-close-product]") || e.target.id==="productModal") closeProduct();
-    if(e.target.closest("[data-close-checkout]") || e.target.id==="directCheckoutModal") closeDirectCheckout();
-  });
+  addBubble(v, true);
+  if(input) input.value = "";
+  if(status) status.textContent = "XAYAYI AI denkt nach …";
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 30000);
+
+  try {
+    const r = await fetch("/api/ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({message:v}),
+      signal: controller.signal
+    });
+
+    const data = await r.json();
+
+    if(!r.ok || !data.ok){
+      throw new Error(data.error || "XAYAYI AI konnte nicht antworten.");
+    }
+
+    addBubble(
+      "🤖 " + (data.assistant || "XAYAYI AI konnte gerade keine Antwort erzeugen."),
+      false
+    );
+
+    if(status) status.textContent = "XAYAYI AI ist online";
+  } catch(err) {
+    console.error("XAYAYI AI:", err);
+    addBubble(
+      "⚠️ XAYAYI AI ist momentan nicht erreichbar. Bitte versuche es gleich erneut.",
+      false
+    );
+    if(status) status.textContent = "Verbindung fehlgeschlagen";
+  } finally {
+    clearTimeout(timer);
+  }
+}
   byId("sendBtn").addEventListener("click",sendChat);
   byId("chatForm").addEventListener("submit",sendChat);
   byId("cart").addEventListener("click",e=>{if(e.target.id==="cart")closeCart();});
